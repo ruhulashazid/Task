@@ -1,0 +1,28 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bangladesh Q&A</title>
+</head>
+<body>
+    <h1>Bangladesh Q&A System</h1>
+    <input type="text" id="question" placeholder="Ask a question...">
+    <button onclick="getAnswer()">Get Answer</button>
+    <p id="answer"></p>
+
+    <script>
+        async function getAnswer() {
+            const question = document.getElementById("question").value;
+            const response = await fetch("/answer", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ question: question })
+            });
+            const data = await response.json();
+            document.getElementById("answer").innerText = data.answer;
+        }
+    </script>
+</body>
+</html>
